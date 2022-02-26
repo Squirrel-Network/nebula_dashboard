@@ -45,7 +45,10 @@ def dashboard():
 @login_required
 def update(id):
 	if request.method == 'GET':
-		return render_template("edit.html")
+		tg_id = int(session['tgid'])
+		db_data = (tg_id, id)
+		row = GroupsRepository().get_groups_options(db_data)
+		return render_template("edit.html",data=row)
 	if request.method == 'POST':
 		tg_id = int(session['tgid'])
 		db_data = (tg_id, id)

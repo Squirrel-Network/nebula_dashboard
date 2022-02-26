@@ -41,6 +41,23 @@ def dashboard():
 	else:
 		return redirect(url_for('login'))
 
+@app.route('/update/<id>', methods=['GET', 'POST'])
+@login_required
+def update(id):
+	if request.method == 'GET':
+		return render_template("edit.html")
+	if request.method == 'POST':
+		tg_id = int(session['tgid'])
+		db_data = (tg_id, id)
+		row = GroupsRepository().get_groups_options(db_data)
+		return render_template("edit.html",data=row)
+
+@app.route('/delete/<id>', methods=['GET', 'POST'])
+@login_required
+def delete(id):
+	print(id)
+	return "delete"
+
 @app.route('/logout')
 def delete_session():
 	session.clear()
@@ -63,6 +80,8 @@ def login():
 		#Create Session
 		session['logged_user'] = True
 		session['tgid'] = tg_data['id']
+		session['username'] = tg_data['username']
+		session['photo_url'] = tg_data['photo_url']
 		return redirect(url_for('dashboard'))
 	else:
 		return redirect(url_for('login'))

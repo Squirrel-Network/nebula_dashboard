@@ -16,3 +16,7 @@ class GroupsRepository(Connection):
     def get_groups(self, args=None):
         q = "SELECT * FROM groups gr INNER JOIN nebula_dashboard nu ON gr.id_group = nu.tg_group_id WHERE nu.tg_id = %s"
         return self._selectAll(q, args)
+
+    def get_groups_options(self, args=None):
+        q = "SELECT * FROM groups gr INNER JOIN nebula_dashboard nu ON gr.id_group = nu.tg_group_id WHERE nu.tg_id = %s AND gr.id_group = %s"
+        return self._select(q, args)

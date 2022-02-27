@@ -20,3 +20,7 @@ class GroupsRepository(Connection):
     def get_groups_options(self, args=None):
         q = "SELECT * FROM groups gr INNER JOIN nebula_dashboard nu ON gr.id_group = nu.tg_group_id WHERE nu.tg_id = %s AND gr.id_group = %s"
         return self._select(q, args)
+
+    def update_group_settings(self, record, args=None):
+        q = "UPDATE groups SET @record = %s WHERE id_group = %s".replace('@record',record)
+        return self._update(q, args)

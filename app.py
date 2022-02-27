@@ -52,6 +52,15 @@ def update(id):
 	if request.method == 'POST':
 		tg_id = int(session['tgid'])
 		db_data = (tg_id, id)
+		rules_button = request.form.get('updateoptions')
+		if rules_button is not None:
+			record_welcome = 'welcome_text'
+			record_rules = 'rules_text'
+			form = request.form
+			data_welcome = [(form['welcome'],id)]
+			data_rules = [(form['rules'],id)]
+			GroupsRepository().update_group_settings(record_welcome,data_welcome)
+			GroupsRepository().update_group_settings(record_rules,data_rules)
 		row = GroupsRepository().get_groups_options(db_data)
 		return render_template("edit.html",data=row)
 

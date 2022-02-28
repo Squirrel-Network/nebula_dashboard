@@ -176,6 +176,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
+            {% if data %}
             <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -184,9 +185,7 @@
                 <img src="{{data['group_photo']}}" class="img-thumbnail" style="max-width: 220px;" alt="{{data['group_name']}}">
                 <p class="mb-4">Ci sono <b>{{data['total_users']}}</b> Utenti nel tuo gruppo</p>
                 <br>
-                <br>
-
-                <!-- DataTales Example -->
+                <br>  <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Elenco Opzioni</h6>
@@ -195,7 +194,7 @@
                 <!--CARD-->
                     <h2>Benvenuto del gruppo:</h2>
                     <form method="POST">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="welcome">{{data['welcome_text']}}</textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="welcome" required>{{data['welcome_text']}}</textarea>
                         <h4>I tag disponibili per il welcome sono:</h4>
                         <ul>
                             <li><b>{mention}</b> = Menzione Utente(Consigliato)</li>
@@ -247,7 +246,7 @@
                         <hr>
                             <h2>Regole del gruppo:</h2>
 
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="rules">{{data['rules_text']}}</textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="rules" required>{{data['rules_text']}}</textarea>
                             <br>
                             <button type="submit" class="btn btn-primary btn-lg btn-block" name="updateoptions">Aggiorna</button>
                     </form>
@@ -285,6 +284,9 @@
                     </div>
                 </div>
             </div>
+            {% else %}
+                <h1><b>Non hai l'autorizzazione per modificare questo gruppo!</b></h1>
+            {% endif %}
             <!-- End of Main Content -->
 
             <!-- Footer -->

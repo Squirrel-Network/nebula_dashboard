@@ -25,7 +25,7 @@ class GroupsRepository(Connection):
     def update_group_settings(self, record, args=None):
         q = "UPDATE groups SET @record = %s WHERE id_group = %s".replace('@record',record)
         return self._update(q, args)
-    
+
     def get_type_no_username_cat(self, args=None):
         query = Query.from_(tpnu).select("*")
         q = query.get_sql(quote_char=None)

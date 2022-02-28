@@ -55,17 +55,25 @@ def update(id):
 		db_data = (tg_id, id)
 		rules_button = request.form.get('updateoptions')
 		if rules_button is not None:
+			#Database Record
 			record_welcome = 'welcome_text'
 			record_rules = 'rules_text'
 			record_tpnu = 'type_no_username'
+			record_checkbox_no_photo = 'set_user_profile_picture'
+			#Data Arrived by <form>
 			form = request.form
+			checkbox_photo = form.get('userphoto') if form.get('userphoto') is not None else 0
 			data_welcome = [(form['welcome'],id)]
 			data_rules = [(form['rules'],id)]
 			data_tpnu = [(int(form['tpnuselect']),id)]
-			print(data_tpnu)
+			data_checkbox_photo = [(int(checkbox_photo),id)]
+            #Update Database
+
 			GroupsRepository().update_group_settings(record_welcome,data_welcome)
 			GroupsRepository().update_group_settings(record_rules,data_rules)
 			GroupsRepository().update_group_settings(record_tpnu,data_tpnu)
+			GroupsRepository().update_group_settings(record_tpnu,data_tpnu)
+			GroupsRepository().update_group_settings(record_checkbox_no_photo,data_checkbox_photo)
 		row = GroupsRepository().get_groups_options(db_data)
 		get_tpnu = GroupsRepository().get_type_no_username_cat()
 		return render_template("edit.html",data=row,tpnu=get_tpnu)

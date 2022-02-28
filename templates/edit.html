@@ -181,6 +181,10 @@
                     <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Benvenuto, {{session['username']}}</h1>
                 <p class="mb-4">Stai modificando il gruppo <b>{{data['group_name']}}</b></p>
+                <img src="{{data['group_photo']}}" class="img-thumbnail" style="max-width: 220px;" alt="{{data['group_name']}}">
+                <p class="mb-4">Ci sono <b>{{data['total_users']}}</b> Utenti nel tuo gruppo</p>
+                <br>
+                <br>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -206,13 +210,26 @@
                             <option value="{{row['type_no_username_id']}}">{{row['type_no_username_desc']}}</option>
                         {% endfor %}
                         </select>
+                        <hr>
+                        <h4>Filtri del Benvenuto:</h4>
+                        <!--GRID FILTRI-->
+                        <div class="container">
+                            <div class="row">
+                              <div class="col">Column</div>
+                              <div class="col">Column</div>
+                              <div class="w-100"></div>
+                              <div class="col">Column</div>
+                              <div class="col">Column</div>
+                            </div>
+                          </div>
+                        <!--FINE GRID FILTRI-->
                         <br>
-                    <hr>
-                    <h2>Regole del gruppo:</h2>
+                        <hr>
+                            <h2>Regole del gruppo:</h2>
 
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="rules">{{data['rules_text']}}</textarea>
-                        <br>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" name="updateoptions">Aggiorna</button>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="rules">{{data['rules_text']}}</textarea>
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" name="updateoptions">Aggiorna</button>
                     </form>
 
                   <!--END CARD-->

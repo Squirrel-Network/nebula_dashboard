@@ -48,7 +48,8 @@ def update(id):
 		tg_id = int(session['tgid'])
 		db_data = (tg_id, id)
 		row = GroupsRepository().get_groups_options(db_data)
-		return render_template("edit.html",data=row)
+		get_tpnu = GroupsRepository().get_type_no_username_cat()
+		return render_template("edit.html",data=row,tpnu=get_tpnu)
 	if request.method == 'POST':
 		tg_id = int(session['tgid'])
 		db_data = (tg_id, id)
@@ -56,13 +57,18 @@ def update(id):
 		if rules_button is not None:
 			record_welcome = 'welcome_text'
 			record_rules = 'rules_text'
+			record_tpnu = 'type_no_username'
 			form = request.form
 			data_welcome = [(form['welcome'],id)]
 			data_rules = [(form['rules'],id)]
+			data_tpnu = [(int(form['tpnuselect']),id)]
+			print(data_tpnu)
 			GroupsRepository().update_group_settings(record_welcome,data_welcome)
 			GroupsRepository().update_group_settings(record_rules,data_rules)
+			GroupsRepository().update_group_settings(record_tpnu,data_tpnu)
 		row = GroupsRepository().get_groups_options(db_data)
-		return render_template("edit.html",data=row)
+		get_tpnu = GroupsRepository().get_type_no_username_cat()
+		return render_template("edit.html",data=row,tpnu=get_tpnu)
 
 @app.route('/delete/<id>', methods=['GET', 'POST'])
 @login_required

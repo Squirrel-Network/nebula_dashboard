@@ -192,6 +192,20 @@
                     <h2>Benvenuto del gruppo:</h2>
                     <form method="POST">
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="welcome">{{data['welcome_text']}}</textarea>
+                        <h4>I tag disponibili per il welcome sono:</h4>
+                        <ul>
+                            <li><b>{mention}</b> = Menzione Utente(Consigliato)</li>
+                            <li><b>{username}</b> = Username dell'utente (@username)</li>
+                            <li><b>{first_name}</b> = Nome Utente</li>
+                            <li><b>{userid}</b> = Id Utente</li>
+                            <li><b>{chat}</b> = Nome della chat</li>
+                        </ul>
+                        <h4>Comportamento del Welcome quando un utente non ha un username:</h4>
+                        <select class="form-control" aria-label="Seleziona Categoria" name="tpnuselect">
+                        {% for row in tpnu %}
+                            <option value="{{row['type_no_username_id']}}">{{row['type_no_username_desc']}}</option>
+                        {% endfor %}
+                        </select>
                         <br>
                     <hr>
                     <h2>Regole del gruppo:</h2>

@@ -60,13 +60,23 @@ def update(id):
 			record_rules = 'rules_text'
 			record_tpnu = 'type_no_username'
 			record_checkbox_no_photo = 'set_user_profile_picture'
+			record_checkbox_welcome = 'set_welcome'
+			record_checkbox_arabic = 'set_arabic_filter'
 			#Data Arrived by <form>
 			form = request.form
 			checkbox_photo = form.get('userphoto') if form.get('userphoto') is not None else 0
+			checkbox_welcome = form.get('welcomeswitch') if form.get('welcomeswitch') is not None else 0
+			checkbox_arabic_filter = form.get('arabicfilter') if form.get('arabicfilter') is not None else 0
+
 			data_welcome = [(form['welcome'],id)]
 			data_rules = [(form['rules'],id)]
 			data_tpnu = [(int(form['tpnuselect']),id)]
 			data_checkbox_photo = [(int(checkbox_photo),id)]
+			data_checkbox_welcome = [(int(checkbox_welcome),id)]
+			data_checkbox_arabic = [(int(checkbox_arabic_filter),id)]
+			print(data_checkbox_photo)
+			print(data_checkbox_welcome)
+			print(data_checkbox_arabic)
             #Update Database
 
 			GroupsRepository().update_group_settings(record_welcome,data_welcome)
@@ -74,6 +84,8 @@ def update(id):
 			GroupsRepository().update_group_settings(record_tpnu,data_tpnu)
 			GroupsRepository().update_group_settings(record_tpnu,data_tpnu)
 			GroupsRepository().update_group_settings(record_checkbox_no_photo,data_checkbox_photo)
+			GroupsRepository().update_group_settings(record_checkbox_welcome,data_checkbox_welcome)
+			GroupsRepository().update_group_settings(record_checkbox_arabic,data_checkbox_arabic)
 		row = GroupsRepository().get_groups_options(db_data)
 		get_tpnu = GroupsRepository().get_type_no_username_cat()
 		return render_template("edit.html",data=row,tpnu=get_tpnu)

@@ -215,46 +215,49 @@
                         <div class="container">
                             <div class="row">
                               <div class="col">
-                                {% if data['set_user_profile_picture'] == 1 %}
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked1" name="userphoto" value="0" checked>
-                                    <label class="form-check-label" for="flexSwitchCheckChecked1">Vieta utenti senza foto profilo</label>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked1">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="userphoto"
+                                            value="1"
+                                            {% if data['set_user_profile_picture'] == 1 %} checked {% endif %}
+                                        />
+                                        Vieta utenti senza foto profilo
+                                    </label>
                                   </div>
-                                {% else %}
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault2" name="userphoto" value="1">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault2">Vieta utenti senza foto profilo</label>
-                                  </div>
-                                {% endif %}
 
                               </div>
                               <div class="col">
-                                {% if data['set_welcome'] == 1 %}
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked3" name="welcomeswitch" value="0" checked>
-                                    <label class="form-check-label" for="flexSwitchCheckChecked3">Abilita Welcome</label>
+                                    <label class="form-check-label">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="welcomeswitch"
+                                            value="1"
+                                            {% if data['set_welcome'] == 1 %} checked {% endif %}
+                                        />
+                                        Abilita Welcome
+                                    </label>
                                   </div>
-                                {% else %}
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault4" name="welcomeswitch" value="1">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault4">Abilita Welcome</label>
-                                  </div>
-                                {% endif %}
 
                               </div>
                               <div class="w-100"></div>
                               <div class="col">
-                                {% if data['set_arabic_filter'] == 1 %}
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked5" name="arabicfilter" value="0" checked>
-                                    <label class="form-check-label" for="flexSwitchCheckChecked5">Blocco Utenti con Caratteri Arabi</label>
+                                    <label class="form-check-label">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="arabicfilter"
+                                            value="1"
+                                            {% if data['set_arabic_filter'] == 1 %} checked {% endif %}
+                                        />
+                                        Blocco Utenti con Caratteri Arabi
+                                    </label>
                                   </div>
-                                {% else %}
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault6" name="arabicfilter" value="1">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault6">Blocco Utenti con Caratteri Arabi</label>
-                                  </div>
-                                {% endif %}
                                 </div>
                               <div class="col">
                                   Column

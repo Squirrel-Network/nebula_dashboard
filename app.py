@@ -64,6 +64,7 @@ def update(id):
 			record_checkbox_arabic = 'set_arabic_filter'
 			#Data Arrived by <form>
 			form = request.form
+
 			checkbox_photo = form.get('userphoto') if form.get('userphoto') is not None else 0
 			checkbox_welcome = form.get('welcomeswitch') if form.get('welcomeswitch') is not None else 0
 			checkbox_arabic_filter = form.get('arabicfilter') if form.get('arabicfilter') is not None else 0
@@ -74,9 +75,6 @@ def update(id):
 			data_checkbox_photo = [(int(checkbox_photo),id)]
 			data_checkbox_welcome = [(int(checkbox_welcome),id)]
 			data_checkbox_arabic = [(int(checkbox_arabic_filter),id)]
-			print(data_checkbox_photo)
-			print(data_checkbox_welcome)
-			print(data_checkbox_arabic)
             #Update Database
 
 			GroupsRepository().update_group_settings(record_welcome,data_welcome)

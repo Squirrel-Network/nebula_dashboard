@@ -44,16 +44,23 @@ def dashboard():
 @app.route('/update/<id>', methods=['GET', 'POST'])
 @login_required
 def update(id):
+	get_badwords = GroupsRepository().get_badwords_group(id)
 	if request.method == 'GET':
 		tg_id = int(session['tgid'])
 		db_data = (tg_id, id)
 		row = GroupsRepository().get_groups_options(db_data)
 		get_tpnu = GroupsRepository().get_type_no_username_cat()
-		return render_template("edit.html",data=row,tpnu=get_tpnu)
+		get_badwords = GroupsRepository().get_badwords_group(id)
+		return render_template("edit.html",data=row, tpnu=get_tpnu, badwords=get_badwords)
 	if request.method == 'POST':
 		tg_id = int(session['tgid'])
 		db_data = (tg_id, id)
 		rules_button = request.form.get('updateoptions')
+		bads = request.form.get('badword')
+		if bads is not None:
+			data = [(bads,id)]
+			GroupsRepository().insert_badword(data)
+			return redirect(url_for('update',id=id))
 		if rules_button is not None:
 			#Database Record
 			record_welcome = 'welcome_text'
@@ -86,13 +93,20 @@ def update(id):
 			GroupsRepository().update_group_settings(record_checkbox_arabic,data_checkbox_arabic)
 		row = GroupsRepository().get_groups_options(db_data)
 		get_tpnu = GroupsRepository().get_type_no_username_cat()
-		return render_template("edit.html",data=row,tpnu=get_tpnu)
+		return render_template("edit.html",data=row, tpnu=get_tpnu, badwords=get_badwords)
 
 @app.route('/delete/<id>', methods=['GET', 'POST'])
 @login_required
 def delete(id):
 	print(id)
 	return "delete"
+
+@app.route('/deletebadword/<id>/<groupid>', methods=['GET', 'POST'])
+@login_required
+def deletebadword(id,groupid):
+	data = [(id,groupid)]
+	GroupsRepository().delete_badword(data)
+	return redirect(url_for('update',id=groupid))
 
 @app.route('/logout')
 def delete_session():

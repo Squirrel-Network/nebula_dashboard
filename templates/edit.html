@@ -133,8 +133,6 @@
                             </div>
                         </li>
 
-          
-
 
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -278,7 +276,42 @@
                     </form>
 
                   <!--END CARD-->
+                  <hr>
+                  <!--BADWORD TABLE-->
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Gestione Badword</h6>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Badword</span>
+                                <input type="text" class="form-control" placeholder="Inserisci Badword" aria-label="Title" aria-describedby="basic-addon1" name="badword" required="true">
+                              </div>
+                              <button  class="btn btn-primary btn-lg btn-block" name="updatets">Inserisci Badword</button>
+                          </form>
+                          <br>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Elimina</th>
+                                        <th>Badword</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for row in badwords %}
+                                    <tr>
+                                        <td><form action="{{ url_for('deletebadword', id = row['id'], groupid = data['id_group']) }}" method="POST"><button type="submit" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></form></td>
+                                        <td><b>{{row['word']}}</b></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+             </div>
                 <!-- /.container-fluid -->
 
 

@@ -30,3 +30,16 @@ class GroupsRepository(Connection):
         query = Query.from_(tpnu).select("*")
         q = query.get_sql(quote_char=None)
         return self._selectAll(q, args)
+
+    def get_badwords_group(self, args=None):
+        q = "SELECT * FROM groups_badwords WHERE tg_group_id = %s"
+        return self._selectAll(q, args)
+
+    def insert_badword(self, args=None):
+        q = "INSERT IGNORE INTO groups_badwords (word, tg_group_id) VALUES (%s,%s)"
+
+        return self._insert(q, args)
+
+    def delete_badword(self, args=None):
+        q = "DELETE FROM groups_badwords WHERE id = %s AND tg_group_id = %s"
+        return self._delete(q, args)

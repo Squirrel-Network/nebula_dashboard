@@ -11299,3 +11299,82 @@ section {
   padding-top: 9rem;
   padding-bottom: 9rem;
 }
+
+#services {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+}
+
+#services .cardContainer {
+  width: 1000px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px){
+  #services .cardContainer {
+    flex-direction: row;
+  }
+}
+#services .cardContainer .cardItem {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 30px;
+}
+
+#services .cardContainer .cardItem .face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transition: 0.5s;
+}
+
+#services .cardContainer .cardItem .face.face1 {
+  background: #333;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  z-index: 1;
+  transform-origin: bottom;
+}
+#services .cardContainer .cardItem .face.face1 img {
+  max-width: 100px;
+  filter: invert(1);
+}
+
+
+#services .cardContainer .cardItem .face.face1 h3 {
+  margin: 10px 0 0;
+  color: #fff;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+#services .cardContainer .cardItem:hover .face.face1 {
+  transform: translateY(-100%) rotateX(90deg);
+  background-color: #0b5ed7;
+}
+
+#services .cardContainer .cardItem .face.face2 {
+  background: #333;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transform-origin: top;
+  transform: translateY(100%) rotateX(90deg);
+}
+
+#services .cardContainer .cardItem:hover .face.face2 {
+  transform: translateY(0) rotateX(0deg);
+
+}

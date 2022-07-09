@@ -281,8 +281,59 @@
                                   </div>
                                 </div>
                               <div class="col">
-                                  Column
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="cirillicfilter"
+                                            value="1"
+                                            {% if data['set_cirillic_filter'] == 1 %} checked {% endif %}
+                                        />
+                                        Blocco Utenti con caratteri Russi
+                                    </label>
+                                  </div>
                                 </div>
+                            </div>
+                          </div>
+
+                          <div class="container">
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="chinesefilter"
+                                            value="1"
+                                            {% if data['set_chinese_filter'] == 1 %} checked {% endif %}
+                                        />
+                                        Blocco Utenti con caratteri Cinesi
+                                    </label>
+                                  </div>
+
+
+
+                              </div>
+                              <div class="col">
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label">
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="zoophilefilter"
+                                            value="1"
+                                            {% if data['zoophile_filter'] == 1 %} checked {% endif %}
+                                        />
+                                        Blocco Utenti Zoofili
+                                    </label>
+                                  </div>
+
+                              </div>
+                              <div class="w-100"></div>
+                              <div class="col">Column</div>
+                              <div class="col">Column</div>
                             </div>
                           </div>
                         <!--FINE GRID FILTRI-->
@@ -294,7 +345,14 @@
                             <br>
                             <button type="submit" class="btn btn-primary btn-lg btn-block" name="updateoptions">Aggiorna</button>
                     </form>
-
+                    <br>
+                    <hr>
+                    <form method="POST">
+                    <h2 id="gotomessage">Invia un Messaggio nel Gruppo {{data['group_name']}} dal Bot:</h2>
+                       <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="sendbot"></textarea>
+                       <br>
+                       <button type="submit" class="btn btn-primary btn-lg btn-block" name="sendmessagebutton">Invia Messaggio</button>
+                    </form>
                   <!--END CARD-->
                   <hr>
                   <!--BADWORD TABLE-->

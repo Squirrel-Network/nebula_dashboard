@@ -10,3 +10,9 @@ class Config(object):
      USER = ''
      PASSWORD = ''
      DBNAME = ''
+     ###########################
+     ##   APP SETTINGS       ##
+     ##########################
+     DEBUG = False
+     APP_PORT = 4495
+     BOT_TOKEN = ""

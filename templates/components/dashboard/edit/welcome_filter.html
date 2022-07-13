@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+            <label class="form-check-label" for="flexSwitchCheckChecked1">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="userphoto"
+                    value="1"
+                    {% if data['set_user_profile_picture'] == 1 %} checked {% endif %}
+                />
+                Vieta utenti senza foto profilo
+            </label>
+          </div>
+
+      </div>
+      <div class="col">
+        <div class="form-check form-switch">
+            <label class="form-check-label">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="welcomeswitch"
+                    value="1"
+                    {% if data['set_welcome'] == 1 %} checked {% endif %}
+                />
+                Abilita Welcome
+            </label>
+          </div>
+
+      </div>
+      <div class="w-100"></div>
+      <div class="col">
+        <div class="form-check form-switch">
+            <label class="form-check-label">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="arabicfilter"
+                    value="1"
+                    {% if data['set_arabic_filter'] == 1 %} checked {% endif %}
+                />
+                Blocco Utenti con Caratteri Arabi
+            </label>
+          </div>
+        </div>
+      <div class="col">
+        <div class="form-check form-switch">
+            <label class="form-check-label">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="cirillicfilter"
+                    value="1"
+                    {% if data['set_cirillic_filter'] == 1 %} checked {% endif %}
+                />
+                Blocco Utenti con caratteri Russi
+            </label>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+            <label class="form-check-label">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="chinesefilter"
+                    value="1"
+                    {% if data['set_chinese_filter'] == 1 %} checked {% endif %}
+                />
+                Blocco Utenti con caratteri Cinesi
+            </label>
+          </div>
+
+
+
+      </div>
+      <div class="col">
+        <div class="form-check form-switch">
+            <label class="form-check-label">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="zoophilefilter"
+                    value="1"
+                    {% if data['zoophile_filter'] == 1 %} checked {% endif %}
+                />
+                Blocco Utenti Zoofili
+            </label>
+          </div>
+
+      </div>
+      <div class="w-100"></div>
+      <!--<div class="col">Column</div>
+      <div class="col">Column</div>-->
+    </div>
+  </div>

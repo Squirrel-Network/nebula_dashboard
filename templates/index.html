@@ -1,74 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Nebula Dashboard</title>
-        <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="static/css/styles.css" rel="stylesheet" />
-    </head>
+    {% include "components/home/head.html" %}
     <body id="page-top">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <div class="container px-4">
-                <a class="navbar-brand" href="https://nebula.squirrel-network.online/login">Nebula Dashboard</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="https://api.nebula.squirrel-network.online">API</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://github.com/Squirrel-Network/nebula8">Bot</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Header-->
-        <header class="bg-primary bg-gradient text-white">
-            <div class="container px-4 text-center">
-                <h1 class="fw-bolder">Benvenuto nella Dashboard di Nebula</h1>
-                <p class="lead">Creato dal Team di SquirrelNetwork</p>
-                <a>
-                  <script async src="https://telegram.org/js/telegram-widget.js?15"
-                  data-telegram-login="nebula_login_bot"
-                  data-auth-url="https://nebula.squirrel-network.online/login"
-                  data-size="large"
-                  data-request-access="write">
-                </script>
-                </a>
-            </div>
-        </header>
+        {% include "components/home/navbar.html" %}
+
+        {% include "components/home/header.html" %}
         <!-- Services section-->
-        <section class="bg-light" id="services">
-            <div class="container px-4">
-                <div class="row gx-4 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2>Organizza il tuo gruppo</h2>
-                        <p class="lead">Con la Dashboard puoi organizzare il tuo bot in modo più facile e intuitivo! Gestisci il tuo gruppo a 360 gradi con un semplice click!
-                          <br>
-                          <br>
-                        Imposta in modo semplice il benvenuto del tuo gruppo, filtri, regole, badword e tanto altro ancora!
-                        <br>
-                        <hr>
-                        <h1>ℹ️ GUIDA</h1>
-                        <br>
-                        Per abilitare la dashboard devi aver inserito <a href="https://t.me/thenebulabot?startgroup=start">Nebula</a> nel tuo Gruppo<br>
-                        ed essere proprietario del gruppo ti basta digitare <code>/dashboard</code> nel tuo gruppo<br>
-                        </p>
-                        <h3>Puoi trovare supporto nel nostro gruppo di <a href="https://t.me/nebulabot_support">Nebula Bot</a></h3>
-                    </div>
-                </div>
-            </div>
-        </section>
+        {% include "components/home/section.html" %}
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container px-4"><p class="m-0 text-center text-white">Copyright &copy; SquirrelNetwork Team 2022 || Versione: 1.0.5</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="static/js/scripts.js"></script>
+        {% extends 'components/home/footer.html' %}
     </body>
 </html>
-

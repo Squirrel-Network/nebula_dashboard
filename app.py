@@ -131,6 +131,13 @@ def delete_session():
 	session.clear()
 	return redirect(url_for('login'))
 
+@app.route('/test', methods=['GET', 'POST'])
+@login_required
+def test():
+	a = request.form.get('ckeditortest')
+	print(a)
+	return render_template("test.html")
+
 @app.route('/login')
 def login():
 	if not request.args.get('hash',None):

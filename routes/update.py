@@ -27,7 +27,7 @@ def update(id):
 		if bads is not None:
 			data = [(bads,id)]
 			GroupsRepository().insert_badword(data)
-			return redirect(url_for('update',id=id))
+			return redirect(url_for('route_update.update',id=id))
 		if message_button is not None:
 			send_message = request.form.get('sendbot')
 			ApiMessage(send_message,id)

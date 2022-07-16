@@ -3,7 +3,7 @@
 
 # Copyright SquirrelNetwork
 from config import Config
-from flask import Flask, render_template, request,redirect, session, url_for
+from flask import Flask, render_template,redirect, session, url_for
 from flask_login import login_required
 from decorators import login_required
 from routes.login import route_login
@@ -38,12 +38,12 @@ def delete(id):
 def deletebadword(id,groupid):
 	data = [(id,groupid)]
 	GroupsRepository().delete_badword(data)
-	return redirect(url_for('update',id=groupid))
+	return redirect(url_for('route_update.update',id=groupid))
 
 @app.route('/logout')
 def delete_session():
 	session.clear()
-	return redirect(url_for('login'))
+	return redirect(url_for('route_login.login'))
 
 
 ################

@@ -2,23 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CKEditor 5 – Classic editor</title>
+    <title>Editor Test</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
 </head>
 <body>
     <h1>Classic editor</h1>
-    <form method="post">
-    <div id="editor" name="ckeditortest">
-        <p>This is some sample content.</p>
-    </div>
-    <script>
-        ClassicEditor
-            .create( document.getElementById("editor") )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
-    <button  class="btn btn-primary btn-lg btn-block" >TEST</button>
+    <form name="testform" method="post" action="test">
+        <div id="editor">
+            <p>This is some sample content.</p>
+        </div>
+        <input type="hidden" name="valore_editor">
+        <script type="module">
+        const editor = await ClassicEditor.create(document.querySelector('#editor'));
+        const form = window.testform;
+        const valore = form.elements.valore_editor;
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const editorData = editor.getData();
+            valore.value = editorData;
+
+            form.submit();
+        });
+        </script>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" >TEST</button>
     </form>
 </body>
 </html>

@@ -23,4 +23,4 @@ def dashboard():
 		else:
 			return 'Non sei abilitato! Contatta un amministratore'
 	else:
-		return redirect(url_for('login'))
+		return redirect(url_for('route_login.login'))

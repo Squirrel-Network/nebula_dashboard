@@ -12,7 +12,6 @@ from utilities import string_generator
 
 route_login = Blueprint('route_login', __name__)
 
-#@app.route('/login')
 @route_login.route('/login', methods=['GET'])
 def login():
 	if not request.args.get('hash',None):

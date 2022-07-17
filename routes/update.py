@@ -1,12 +1,15 @@
-from flask import request, Blueprint, session, render_template, redirect, url_for
-from utilities import ApiMessage
-from database.repository.groups import GroupsRepository
-from decorators import login_required
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
+# Copyright SquirrelNetwork
+from flask import request, Blueprint, session, render_template, redirect, url_for
+from utilities import ApiMessage, ApiTitle
+from database.repository.groups import GroupsRepository
+from database.repository.users import UsersRepository
+from decorators import login_required
 
 route_update = Blueprint('route_update', __name__)
 
-#@app.route('/update/<id>', methods=['GET', 'POST'])
 @route_update.route('/update/<id>', methods=['GET', 'POST'])
 @login_required
 def update(id):
@@ -17,12 +20,16 @@ def update(id):
 		row = GroupsRepository().get_groups_options(db_data)
 		get_tpnu = GroupsRepository().get_type_no_username_cat()
 		get_badwords = GroupsRepository().get_badwords_group(id)
-		return render_template("edit.html",data=row, tpnu=get_tpnu, badwords=get_badwords)
+		get_owners = UsersRepository().getOwnerById(tg_id)
+		if get_owners:
+			row = GroupsRepository().getById(id)
+		return render_template("edit.html",data = row, tpnu = get_tpnu, badwords = get_badwords, owner = get_owners)
 	if request.method == 'POST':
 		tg_id = int(session['tgid'])
 		db_data = (tg_id, id)
 		rules_button = request.form.get('updateoptions')
 		message_button = request.form.get('sendmessagebutton')
+		title_button = request.form.get('updatetitle')
 		bads = request.form.get('badword')
 		if bads is not None:
 			data = [(bads,id)]
@@ -31,7 +38,14 @@ def update(id):
 		if message_button is not None:
 			send_message = request.form.get('sendbot')
 			ApiMessage(send_message,id)
-			print(send_message)
+
+		if title_button is not None:
+			title = request.form.get('chattitle')
+			record_title = 'group_name'
+			ApiTitle(title,id)
+			data = [(record_title,id)]
+			GroupsRepository().update_group_settings(record_title,data)
+
 		if rules_button is not None:
 			#Database Record
 			record_welcome = 'welcome_text'
@@ -76,4 +90,7 @@ def update(id):
 			GroupsRepository().update_group_settings(record_checkbox_zoophile,data_checkbox_zoophile)
 		row = GroupsRepository().get_groups_options(db_data)
 		get_tpnu = GroupsRepository().get_type_no_username_cat()
-		return render_template("edit.html",data=row, tpnu=get_tpnu, badwords=get_badwords)
+		get_owner_data = UsersRepository().getOwnerById(tg_id)
+		if get_owner_data:
+			row = GroupsRepository().getById(id)
+		return render_template("edit.html",data=row, tpnu=get_tpnu, badwords=get_badwords,owner = get_owner_data)

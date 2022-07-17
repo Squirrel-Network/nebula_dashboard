@@ -8,7 +8,6 @@ from decorators import login_required
 
 route_test = Blueprint('route_test', __name__)
 
-#@app.route('/test', methods=['GET', 'POST'])
 @route_test.route('/test', methods=['GET', 'POST'])
 @login_required
 def test():

@@ -108,36 +108,8 @@
                     <h1 class="h3 mb-2 text-gray-800">Benvenuto, {{session['username']}}</h1>
                     <p class="mb-4">In questa pagina puoi vedere l'elenco dei tuoi gruppi</p>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4" style="border-radius: 13px;overflow: hidden;">
-                        <div class="card-header py-3" style="border-radius: 0px;">
-                            <h6 class="m-0 font-weight-bold text-primary">Lista dei Gruppi</h6>
-                        </div>
-            <div class="card-body" style="margin-left: 10px;margin-top: 10px;height: 100%;margin-bottom: 10px;display: flex;flex-direction: column;">
-                <!--CARD-->
-                <div class="card-group" style="border-radius: 0px;overflow: hidden;display: flex;flex-wrap: wrap;justify-content: center;">
-                {% for row in data %}
-                    <div class="card" style="flex: auto;max-width: 200px;border-radius: 13px;overflow: hidden;margin: 0.5em;border: 1px solid rgba(0, 0, 0, 0.22);">
-                      <img src="{{row['group_photo']}}" class="card-img-top" alt="{{row['group_name']}}">
-                      <div class="card-body" style="display: flex;flex-direction: column;height: 100%;">
-                        <h5 class="card-title">{{row['group_name']}}</h5>
-                        <p class="card-text">
-                            <b>Id del gruppo:</b> {{row['tg_group_id']}}
-                            <br>
-                            <b>Canale Log Gruppo:</b> {{row['log_channel']}}
-                        </p>
-                        <div style="height: 100%;display: flex;align-items: flex-end;">
-                            <form style="margin-right: 10px;" class="d-inline-block" action="{{ url_for('route_update.update', id = row['tg_group_id']) }}" method="POST"><button type="submit" class="btn btn-primary btn-circle""><i class="fas fa-edit"></i></button></form> <form class="d-inline-block" action="{{ url_for('delete', id = row['tg_group_id']) }}" method="POST"><button type="submit" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></form>
-                        </div>
-                        </div>
-                    </div>
-                    <div>
+                    {% include 'components/dashboard/card.html' %}
 
-                    </div>
-                {% endfor %}
-                  </div>
-                  <!--END CARD-->
-                </div>
                 <!-- /.container-fluid -->
 
 

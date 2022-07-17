@@ -10,7 +10,6 @@ from decorators import login_required
 
 route_dashboard = Blueprint('route_dashboard', __name__)
 
-#@app.route('/dashboard')
 @route_dashboard.route('/dashboard')
 @login_required
 def dashboard():
@@ -19,7 +18,9 @@ def dashboard():
 	if row:
 		if row['enable'] == 1:
 			groups = GroupsRepository().get_groups(tg_id)
-			return render_template('dashboard.html', data=groups)
+			get_all_groups = GroupsRepository().getAll()
+			get_owners = UsersRepository().getOwnerById(tg_id)
+			return render_template('dashboard.html', data=groups, ownerdata=get_all_groups,owner=get_owners)
 		else:
 			return 'Non sei abilitato! Contatta un amministratore'
 	else:

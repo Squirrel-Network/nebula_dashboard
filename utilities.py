@@ -25,3 +25,9 @@ def ApiMessage(text, chat_id):
     url = MAIN_URL + "bot{}/sendmessage?chat_id={}&text={}&parse_mode=HTML".format(TOKEN, chat_id, text)
     send = requests.get(url)
     return send
+
+def ApiTitle(text, chat_id):
+	text = urllib.parse.quote_plus(text)
+	url = MAIN_URL + "bot{}/setChatTitle?chat_id={}&title={}".format(TOKEN, chat_id, text)
+	send = requests.get(url)
+	return send

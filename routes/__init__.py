@@ -1,3 +1,3 @@
-__all__ = ["dashboard","login","update"]
+__all__ = ["dashboard","delete_group","login","test","update"]
 
 from routes import *

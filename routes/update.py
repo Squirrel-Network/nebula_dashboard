@@ -24,6 +24,7 @@ def update(id):
 		if get_owners:
 			row = GroupsRepository().getById(id)
 		return render_template("edit.html",data = row, tpnu = get_tpnu, badwords = get_badwords, owner = get_owners)
+
 	if request.method == 'POST':
 		tg_id = int(session['tgid'])
 		db_data = (tg_id, id)
@@ -31,20 +32,33 @@ def update(id):
 		message_button = request.form.get('sendmessagebutton')
 		title_button = request.form.get('updatetitle')
 		bads = request.form.get('badword')
+		ban_message_btn = request.form.get('sendbanmessage')
+
 		if bads is not None:
 			data = [(bads,id)]
 			GroupsRepository().insert_badword(data)
 			return redirect(url_for('route_update.update',id=id))
+
 		if message_button is not None:
 			send_message = request.form.get('sendbot')
 			ApiMessage(send_message,id)
+			return redirect(url_for('route_update.update',id=id))
 
 		if title_button is not None:
 			title = request.form.get('chattitle')
 			record_title = 'group_name'
 			ApiTitle(title,id)
-			data = [(record_title,id)]
+			data = [(title,id)]
 			GroupsRepository().update_group_settings(record_title,data)
+			return redirect(url_for('route_update.update',id=id))
+
+		if ban_message_btn is not None:
+			ban_msg = request.form.get('banmessage')
+			record_ban_message = 'ban_message'
+			data_ban_message = [(ban_msg,id)]
+			GroupsRepository().update_group_settings(record_ban_message,data_ban_message)
+			return redirect(url_for('route_update.update',id=id))
+
 
 		if rules_button is not None:
 			#Database Record

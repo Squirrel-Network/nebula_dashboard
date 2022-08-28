@@ -33,6 +33,7 @@ def update(id):
 		title_button = request.form.get('updatetitle')
 		bads = request.form.get('badword')
 		ban_message_btn = request.form.get('sendbanmessage')
+		group_filters_btn = request.form.get('sendgroupfilterbtn')
 
 		if bads is not None:
 			data = [(bads,id)]
@@ -57,6 +58,31 @@ def update(id):
 			record_ban_message = 'ban_message'
 			data_ban_message = [(ban_msg,id)]
 			GroupsRepository().update_group_settings(record_ban_message,data_ban_message)
+			return redirect(url_for('route_update.update',id=id))
+
+
+		if group_filters_btn is not None:
+			form = request.form
+			#Record
+			record_block_channel = 'sender_chat_block'
+			record_spoiler = 'spoiler_block'
+			record_vocal = 'set_no_vocal'
+			record_antiflood = 'set_antiflood'
+			#Get parameters via POST
+			checkbox_block_ch = form.get('blockchannel') if form.get('blockchannel') is not None else 0
+			checkbox_spoiler = form.get('setnospoiler') if form.get('setnospoiler') is not None else 0
+			checkbox_vocal = form.get('setnovocal') if form.get('setnovocal') is not None else 0
+			checkbox_antiflood = form.get('setantiflood') if form.get('setantiflood') is not None else 0
+			#Prepare Data
+			data_block_channel = [(int(checkbox_block_ch),id)]
+			data_no_spoiler = [(int(checkbox_spoiler),id)]
+			data_no_vocal = [(int(checkbox_vocal),id)]
+			data_antiflood = [(int(checkbox_antiflood),id)]
+			#Insert Data
+			GroupsRepository().update_group_settings(record_block_channel,data_block_channel)
+			GroupsRepository().update_group_settings(record_spoiler,data_no_spoiler)
+			GroupsRepository().update_group_settings(record_vocal,data_no_vocal)
+			GroupsRepository().update_group_settings(record_antiflood,data_antiflood)
 			return redirect(url_for('route_update.update',id=id))
 
 

@@ -2,15 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Editor Test</title>
+    <title>Crea Articolo</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <body>
-    <h1>Classic editor</h1>
+{% if owner %}
     <form name="testform" method="post" action="test">
-        <div id="editor">
-            <p>This is some sample content.</p>
+    <div class="container">
+        <h1>Scrivi il tuo Articolo</h1>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Linguaggio</span>
+            </div>
+        <input type="text" class="form-control" placeholder="Python" name="lang" aria-label="Python" aria-describedby="basic-addon1">
         </div>
+        <div id="editor">
+            <p>Python Best Language</p>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" >Invia</button>
+    </div>
         <input type="hidden" name="valore_editor">
         <script type="module">
         const editor = await ClassicEditor.create(document.querySelector('#editor'));
@@ -26,7 +38,11 @@
             form.submit();
         });
         </script>
-        <button type="submit" class="btn btn-primary btn-lg btn-block" >TEST</button>
+
     </form>
+{% else %}
+<h1>Non sei Autorizzato a vedere questa pagina</h1>
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 </html>

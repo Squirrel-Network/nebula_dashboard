@@ -37,6 +37,12 @@ def deletebadword(id,groupid):
 	GroupsRepository().delete_badword(data)
 	return redirect(url_for('route_update.update',id=groupid))
 
+@app.route('/deletearticle/<id>', methods=['GET', 'POST'])
+@login_required
+def deletearticle(id):
+	GroupsRepository().delete_article(id)
+	return redirect(url_for('route_test.test'))
+
 @app.route('/logout')
 def delete_session():
 	session.clear()

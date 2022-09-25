@@ -62,6 +62,16 @@ class GroupsRepository(Connection):
         return self._single_delete(q, args)
 
     def insert_article(self, args=None):
-        q = "INSERT INTO nebula_dashboard_content (language, content) VALUES (%s, %s)"
+        q = "INSERT INTO nebula_dashboard_content (title, language, content) VALUES (%s,%s,%s)"
 
         return self._insert(q, args)
+
+    def get_article(self):
+        q = "SELECT * FROM nebula_dashboard_content LIMIT 100"
+
+        return self._selectAll(q)
+
+    def delete_article(self, args=None):
+        q = "DELETE FROM nebula_dashboard_content WHERE article_id = %s"
+
+        return self._single_delete(q, args)

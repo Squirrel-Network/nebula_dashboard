@@ -2,16 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Crea Articolo</title>
+    <title>CRM - Owner</title>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 {% if owner %}
-    <form name="testform" method="post" action="test">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <p class="navbar-brand">CRM</p>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="https://nebula.squirrel-network.online/crm">CRM <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://nebula.squirrel-network.online">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://nebula.squirrel-network.online/dashboard">Dashboard</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <form name="testform" method="post" action="crm">
     <div class="container">
-        <h1>Scrivi il tuo Articolo</h1>
+        <h1>Gestisci Endpoint News</h1>
 
          <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -33,6 +52,26 @@
         <br>
         <button type="submit" class="btn btn-primary btn-lg btn-block" name="sendarticle">Invia</button>
 
+
+    </div>
+        <input type="hidden" name="valore_editor">
+        <script type="module">
+        const editor = await ClassicEditor.create(document.querySelector('#editor'));
+        const form = window.testform;
+        const valore = form.elements.valore_editor;
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const editorData = editor.getData();
+            valore.value = editorData;
+
+            form.submit();
+        });
+        </script>
+
+    </form>
+    <div class="container">
         <table class="table">
   <thead>
     <tr>
@@ -52,26 +91,16 @@
     <tr>
   </tbody>
 </table>
-    <a href="https://api.nebula.squirrel-network.online/v1/news">Visita ENDPOINT</a>
+     <a href="https://api.nebula.squirrel-network.online/v1/news" class="btn btn-info btn-circle">Visita ENDPOINT NEWS</a>
+    <hr>
+    <h1>Gestisci Endpoint Staff</h1>
+    <form method="POST">
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Immagine Staffer</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
     </div>
-        <input type="hidden" name="valore_editor">
-        <script type="module">
-        const editor = await ClassicEditor.create(document.querySelector('#editor'));
-        const form = window.testform;
-        const valore = form.elements.valore_editor;
-
-        form.addEventListener('submit', event => {
-            event.preventDefault();
-
-            const editorData = editor.getData();
-            valore.value = editorData;
-
-            form.submit();
-        });
-        </script>
-
     </form>
-
+    </div>
 
 {% else %}
 <h1>Non sei Autorizzato a vedere questa pagina</h1>

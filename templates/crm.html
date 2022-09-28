@@ -6,6 +6,10 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <script>
+    const infoModalContent = new Map();
+    </script>
 </head>
 <body>
 {% if owner %}
@@ -34,16 +38,48 @@
 
          <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Titolo</span>
+                <span class="input-group-text" id="basic-addon1">Categoria</span>
             </div>
-        <input type="text" class="form-control" placeholder="Titolo" name="title" aria-label="Python" aria-describedby="basic-addon1" required>
+        <!--<input type="text" class="form-control" placeholder="Titolo" name="title" aria-label="Python" aria-describedby="basic-addon1" required>-->
+             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="title">
+                <option selected>Seleziona Categoria</option>
+                        <option value="news">News</option>
+                        <option value="security">Security</option>
+                        <option value="aggiornamenti">Aggiornamenti</option>
+                </select>
         </div>
 
         <div class="input-group mb-3">
                 <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">Linguaggio</span>
             </div>
-        <input type="text" class="form-control" placeholder="Python" name="lang" aria-label="Python" aria-describedby="basic-addon1" required>
+            <select class="form-select" aria-label="Default select example" name="lang">
+                <option selected>Seleziona Linguaggio</option>
+                <option value="go">Golang</option>
+                <option value="js">Javascript</option>
+                <option value="ts">Typescript</option>
+                <option value="py">Python</option>
+                <option value="wa">WebAssembly</option>
+                <option value="php">PHP</option>
+                <option value="dart">Dart</option>
+                <option value="sql">SQL</option>
+                <option value="java">Java</option>
+                <option value="kot">Kotlin</option>
+                <option value="gro">Groovy</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="less">LESS</option>
+                <option value="sass">SASS</option>
+                <option value="scss">SCSS</option>
+                <option value="shell">ShellScript</option>
+                <option value="c">C</option>
+                <option value="cplusplus">C++</option>
+                <option value="csharp">C#</option>
+                <option value="rst">Rust</option>
+                <option value="swift">Swift</option>
+                <option value="oc">Objective-C</option>
+                <option value="ruby">Ruby</option>
+            </select>
         </div>
 
         <div id="editor">
@@ -68,7 +104,6 @@
           , 'blockQuote'
           , 'indent'
           , 'outdent'
-          , 'mediaEmbed'
           , '|'
           , 'undo'
           , 'redo'
@@ -114,14 +149,24 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Title</th>
+        <th scope="col">Language</th>
+        <th scope="col">Info</th>
       <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
   {% for row in data %}
+    <script>
+    infoModalContent.set(
+        '{{ row['article_id'] }}',
+        `{{ row['content'] | safe }}`
+    );
+    </script>
     <tr>
       <th scope="row">{{row['article_id']}}</th>
       <td>{{row['title']}}</td>
+      <td>{{row['language']}}</td>
+      <td><button type="button" class="btn btn-primary info-modal-button" data-info-title="{{ row['title'] }}" data-info-id="{{ row['article_id'] }}" data-bs-toggle="modal" data-bs-target="#infoContent">Info</button></td>
       <td><form action="{{ url_for('deletearticle', id = row['article_id']) }}" method="POST"><button type="submit" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></form></td>
   {% endfor %}
     </tr>
@@ -143,5 +188,45 @@
 <h1>Non sei Autorizzato a vedere questa pagina</h1>
 {% endif %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="infoContent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const infoModalTitle = document.querySelector('#infoContent h5.modal-title');
+const infoModalBody = document.querySelector('#infoContent div.modal-body');
+const infoButtons = Array.from(document.querySelectorAll('button[data-info-id]'));
+
+for(const btn of infoButtons) {
+    const id = btn.getAttribute('data-info-id');
+    const title = btn.getAttribute('data-info-title');
+    const content = infoModalContent.get(id);
+
+    btn.addEventListener(
+        'click',
+        () => {
+            infoModalTitle.innerText = title;
+            infoModalBody.innerHTML = content;
+        }
+    );
+}
+</script>
+
 </body>
 </html>

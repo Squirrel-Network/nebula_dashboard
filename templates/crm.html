@@ -176,12 +176,42 @@
      <a href="https://api.nebula.squirrel-network.online/v1/news" class="btn btn-info btn-circle">Visita ENDPOINT NEWS</a>
     <hr>
     <h1>Gestisci Endpoint Staff</h1>
-    <form method="POST">
-    <div class="form-group">
-        <label for="exampleFormControlFile1">Immagine Staffer</label>
-        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="file">
+     <form method="POST" enctype="multipart/form-data">
+
+         <div class="container">
+  <div class="row">
+    <div class="col">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Nome Admin</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="BluLupo" name="adminname" required>
+        </div>
     </div>
+    <div class="col">
+         <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Contatto</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="https://t.me/BluLupo" name="admincontact" required>
+        </div>
+    </div>
+    <div class="col">
+       <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">GitHub</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="https://github.com/blulupo" name="admingit" required>
+        </div>
+    </div>
+  </div>
+</div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Descrizione Admin</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="admindesc"></textarea>
+        </div>
+         <div>
+            <label for="formFileLg" class="form-label">Immagine Admin</label>
+            <input class="form-control form-control-lg" id="formFileLg" name="file" type="file">
+         </div>
+         <br>
+          <input type="submit" class="btn btn-primary mb-3" value="Upload">
     </form>
+
     </div>
 
 {% else %}

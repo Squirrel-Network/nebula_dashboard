@@ -16,12 +16,9 @@ from database.repository.groups import GroupsRepository
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = '/static/img/uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
 app.config.from_object('config')
 app.secret_key = app.config['SECRET_KEY']
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 # openssl aes-256-cbc -d -in config.py.enc -out config.py -pass env:CONFIGPASS
 # openssl aes-256-cbc -in config.py -out config.py.enc -pass env:CONFIGPASS

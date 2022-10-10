@@ -22,31 +22,43 @@ def crm():
 	tg_id = int(session['tgid'])
 	get_owners = UsersRepository().getOwnerById(tg_id)
 	get_article = GroupsRepository().get_article()
-	title = request.form.get('title')
-	lang = request.form.get('lang')
-	a = request.form.get('valore_editor')
 	if request.method == 'GET':
 		return render_template("crm.html", owner = get_owners, data=get_article)
 	if request.method == 'POST':
-		file = request.files['file']
+		form = request.form
+		title = form.get('title')
+		lang = form.get('lang')
+		a = form.get('valore_editor')
+		input_news = form.get('formnews')
+		input_upload = form.get('formupload')
 
-		if file.filename == '':
-			return '''
-				<!doctype html>
-				<h1>You have not selected any files, please select a file!</h1>
-				<a href="https://nebula.squirrel-network.online/crm">Return to previous page</a>
-				'''
-		if file and allowed_file(file.filename):
-			filename = secure_filename(file.filename)
-			file.save(os.path.join(UPLOAD_FOLDER, filename))
-		else:
-			return '''
-			    <!doctype html>
-			    <h1>Unauthorized file extension uses <code>.jpg, .jpeg, .png</code></h1>
-			    <a href="https://nebula.squirrel-network.online/crm">Return to previous page</a>
-			    '''
-		if a is not None:
+		if input_news is not None:
 			data = [(title.lower(), lang, a)]
 			GroupsRepository().insert_article(data)
+
+
+		if input_upload is not None:
+			file = request.files['file']
+			if file.filename == '':
+				return '''
+					<!doctype html>
+					<h1>You have not selected any files, please select a file!</h1>
+					<a href="https://nebula.squirrel-network.online/crm">Return to previous page</a>
+					'''
+			if file and allowed_file(file.filename):
+				name = form.get('adminname')
+				contact = form.get('admincontact')
+				git = form.get('admingit')
+				filename = secure_filename(file.filename)
+				file.save(os.path.join(UPLOAD_FOLDER, filename))
+				url = "https://nebula.squirrel-network.online/static/img/uploads/{}".format(filename)
+				data = [(name,contact,git,url)]
+				GroupsRepository().insert_staff(data)
+			else:
+				return '''
+			    	<!doctype html>
+			    	<h1>Unauthorized file extension uses <code>.jpg, .jpeg, .png</code></h1>
+			    	<a href="https://nebula.squirrel-network.online/crm">Return to previous page</a>
+			    	'''
 
 		return redirect(url_for('route_crm.crm'))

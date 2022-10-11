@@ -77,6 +77,6 @@ class GroupsRepository(Connection):
         return self._single_delete(q, args)
 
     def insert_staff(self, args=None):
-        q = "INSERT INTO nebula_dashboard_staff (name, contact, git, photo) VALUES (%s,%s,%s,%s)"
+        q = "INSERT INTO nebula_dashboard_staff (name, desc, contact, git, photo) VALUES (%s,%s,%s,%s,%s)"
 
         return self._insert(q, args)

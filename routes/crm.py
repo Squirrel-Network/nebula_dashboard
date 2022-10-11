@@ -13,9 +13,11 @@ route_crm = Blueprint('route_crm', __name__)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'static/img/uploads'
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @route_crm.route('/crm', methods=['GET', 'POST'])
 @login_required
 def crm():
@@ -47,12 +49,13 @@ def crm():
 					'''
 			if file and allowed_file(file.filename):
 				name = form.get('adminname')
+				desc = form.get('admindesc')
 				contact = form.get('admincontact')
 				git = form.get('admingit')
 				filename = secure_filename(file.filename)
 				file.save(os.path.join(UPLOAD_FOLDER, filename))
 				url = "https://nebula.squirrel-network.online/static/img/uploads/{}".format(filename)
-				data = [(name,contact,git,url)]
+				data = [(name,desc,contact,git,url)]
 				GroupsRepository().insert_staff(data)
 			else:
 				return '''

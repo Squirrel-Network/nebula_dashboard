@@ -62,7 +62,7 @@ class GroupsRepository(Connection):
         return self._single_delete(q, args)
 
     def insert_article(self, args=None):
-        q = "INSERT INTO nebula_dashboard_content (title, language, content) VALUES (%s,%s,%s)"
+        q = "INSERT INTO nebula_dashboard_content (article_title, title, language, content) VALUES (%s,%s,%s,%s)"
 
         return self._insert(q, args)
 

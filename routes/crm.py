@@ -28,6 +28,8 @@ def crm():
 		return render_template("crm.html", owner = get_owners, data=get_article)
 	if request.method == 'POST':
 		form = request.form
+		title_article = form.get('titlearticle')
+		print(title_article)
 		title = form.get('title')
 		lang = form.get('lang')
 		a = form.get('valore_editor')
@@ -35,7 +37,7 @@ def crm():
 		input_upload = form.get('formupload')
 
 		if input_news is not None:
-			data = [(title.lower(), lang, a)]
+			data = [(title_article.lower(),title.lower(), lang, a)]
 			GroupsRepository().insert_article(data)
 
 

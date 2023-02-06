@@ -157,7 +157,8 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Title</th>
+       <th scope="col">Title</th>
+      <th scope="col">Category</th>
         <th scope="col">Language</th>
         <th scope="col">Info</th>
       <th scope="col">Delete</th>
@@ -173,6 +174,7 @@
     </script>
     <tr>
       <th scope="row">{{row['article_id']}}</th>
+      <td>{{row['article_title']}}</td>
       <td>{{row['title']}}</td>
       <td>{{row['language']}}</td>
       <td><button type="button" class="btn btn-primary info-modal-button" data-info-title="{{ row['title'] }}" data-info-id="{{ row['article_id'] }}" data-bs-toggle="modal" data-bs-target="#infoContent">Info</button></td>

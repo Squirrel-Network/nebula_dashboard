@@ -29,15 +29,15 @@ def crm():
 	if request.method == 'POST':
 		form = request.form
 		title_article = form.get('titlearticle')
-		print(title_article)
 		title = form.get('title')
 		lang = form.get('lang')
+		author = get_owners['tg_username']
 		a = form.get('valore_editor')
 		input_news = form.get('formnews')
 		input_upload = form.get('formupload')
 
 		if input_news is not None:
-			data = [(title_article.lower(),title.lower(), lang, a)]
+			data = [(title_article.lower(),title.lower(), lang, a,author)]
 			GroupsRepository().insert_article(data)
 
 

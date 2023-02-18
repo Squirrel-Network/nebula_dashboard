@@ -110,6 +110,8 @@
 
                     {% include 'components/dashboard/card.html' %}
 
+
+
                 <!-- /.container-fluid -->
 
 
@@ -117,6 +119,34 @@
             <!-- End of Main Content -->
 
             {% include 'components/dashboard/footer.html' %}
+<script>
+{
+    const input = document.getElementById('cardsearch');
+    const cards = Array.from(document.querySelectorAll('#cardgroup > .card'));
+
+    function toggleCard(c, toggle) {
+        c.style.display = toggle ? 'flex' : 'none';
+    }
+
+    input.addEventListener('keydown', () => {
+        const searchFor = input.value.toLowerCase();
+
+        for(const c of cards) {
+            toggleCard(c, true);
+        }
+
+        for(const c of cards.filter(c => c.querySelector('.card-title').textContent.toLowerCase().indexOf(searchFor) == -1)) {
+            toggleCard(c, false);
+        }
+
+        if(searchFor.trim().length == 0) {
+            for(const c of cards) {
+                toggleCard(c, true);
+            }
+        }
+    });
+}
+</script>
 
 </body>
 

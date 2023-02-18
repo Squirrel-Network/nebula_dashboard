@@ -4,10 +4,11 @@
  <div class="card shadow mb-4" style="border-radius: 13px;overflow: hidden;">
     <div class="card-header py-3" style="border-radius: 0px;">
         <h6 class="m-0 font-weight-bold text-primary">Lista dei Gruppi</h6>
+        <input type="text" class="form-control" id="cardsearch" placeholder="Search...">
     </div>
 <div class="card-body" style="margin-left: 10px;margin-top: 10px;height: 100%;margin-bottom: 10px;display: flex;flex-direction: column;">
 <!--CARD-->
-<div class="card-group" style="border-radius: 0px;overflow: hidden;display: flex;flex-wrap: wrap;justify-content: center;">
+<div class="card-group" id="cardgroup" style="border-radius: 0px;overflow: hidden;display: flex;flex-wrap: wrap;justify-content: center;">
 {% for getgroup in ownerdata %}
 <div class="card" style="flex: auto;max-width: 200px;border-radius: 13px;overflow: hidden;margin: 0.5em;border: 1px solid rgba(0, 0, 0, 0.22);">
   <img src="{{getgroup['group_photo']}}" class="card-img-top" alt="{{getgroup['group_name']}}">
@@ -34,6 +35,7 @@
 <div class="card shadow mb-4" style="border-radius: 13px;overflow: hidden;">
     <div class="card-header py-3" style="border-radius: 0px;">
         <h6 class="m-0 font-weight-bold text-primary">Lista dei Gruppi</h6>
+        <input type="text" class="form-control" id="cardsearch" placeholder="Search...">
     </div>
 <div class="card-body" style="margin-left: 10px;margin-top: 10px;height: 100%;margin-bottom: 10px;display: flex;flex-direction: column;">
 <!--CARD-->
@@ -53,10 +55,9 @@
     </div>
     </div>
 </div>
-<div>
 
-</div>
 {% endfor %}
+
 </div>
 
 <!--END CARD-->

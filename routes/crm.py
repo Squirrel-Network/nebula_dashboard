@@ -24,8 +24,9 @@ def crm():
 	tg_id = int(session['tgid'])
 	get_owners = UsersRepository().getOwnerById(tg_id)
 	get_article = GroupsRepository().get_article()
+	get_staffers = GroupsRepository().get_staff()
 	if request.method == 'GET':
-		return render_template("crm.html", owner = get_owners, data=get_article)
+		return render_template("crm.html", owner = get_owners, data=get_article,staff=get_staffers)
 	if request.method == 'POST':
 		form = request.form
 		title_article = form.get('titlearticle')

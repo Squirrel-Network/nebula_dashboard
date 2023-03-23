@@ -224,8 +224,42 @@
          <br>
           <input type="submit" class="btn btn-primary mb-3" name="upload" value="Upload">
           <br>
-          <a href="https://api.nebula.squirrel-network.online/v1/snstaff" class="btn btn-info btn-circle">Visita ENDPOINT SNSTAFF</a>
+
+
     </form>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+       <th scope="col">Nome</th>
+      <th scope="col">Descrizione</th>
+        <th scope="col">Contatto</th>
+        <th scope="col">Git</th>
+        <th scope="col">PhotoUrl</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in staff %}
+    <tr>
+      <th scope="row">{{row['id']}}</th>
+      <td>{{row['name']}}</td>
+      <td>{{row['description']}}</td>
+      <td><a href="{{row['contact']}}" class="btn btn-info btn-circle">Contatto</a></td>
+      <td><a href="{{row['git']}}" class="btn btn-info btn-circle">Git</a></td>
+      <td><a href="{{row['photo']}}" class="btn btn-info btn-circle">Apri</a></td>
+      <td><form style="margin-right: 10px;" class="d-inline-block" action="{{ url_for('route_staff.staff', id = row['id']) }}" method="POST"><button type="submit" class="btn btn-primary btn-circle""><i class="fas fa-edit"></i></button></form></td>
+      <td><form action="{{ url_for('deletestaffer', id = row['id']) }}" method="POST"><button type="submit" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></form></td>
+  {% endfor %}
+    </tr>
+    <tr>
+  </tbody>
+</table>
+    <br>
+     <a href="https://api.nebula.squirrel-network.online/v1/snstaff" class="btn btn-info btn-circle">Visita ENDPOINT SNSTAFF</a>
+         <br>
+    <br>
 
     </div>
 

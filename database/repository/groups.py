@@ -80,3 +80,23 @@ class GroupsRepository(Connection):
         q = "INSERT INTO nebula_dashboard_staff (name, description, contact, git, photo) VALUES (%s,%s,%s,%s,%s)"
 
         return self._insert(q, args)
+
+
+    def get_staff(self):
+        q = "SELECT * FROM nebula_dashboard_staff"
+
+        return self._selectAll(q)
+
+    def delete_staffer(self, args=None):
+        q = "DELETE FROM nebula_dashboard_staff WHERE id = %s"
+
+        return self._single_delete(q, args)
+
+    def getStafferById(self, args=None):
+        q = "SELECT * FROM nebula_dashboard_staff WHERE id = %s"
+
+        return self._select(q, args)
+
+    def update_staff(self, args=None):
+        q = "UPDATE nebula_dashboard_staff SET description=%s, contact=%s, git=%s WHERE id = %s"
+        return self._update(q, args)

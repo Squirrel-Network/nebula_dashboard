@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modifica</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <form action="/updatestaff/{{data.id}}" method="POST">
+    <input type="hidden" id="linkid" name="linkid" value="{{data.id}}">
+
+  <div class="container">
+      <h1>Stai Modificando {{data.name}}</h1>
+
+        <div class="input-group">
+            <span class="input-group-text">Descrizione</span>
+            <textarea name="desc" class="form-control" rows="6" aria-label="With textarea">{{data.description}}</textarea>
+        </div>
+      <hr>
+      <div class="input-group">
+            <span class="input-group-text">Contatto</span>
+            <textarea name="contact" class="form-control" aria-label="With textarea">{{data.contact}}</textarea>
+        </div>
+      <hr>
+      <div class="input-group">
+            <span class="input-group-text">Git</span>
+            <textarea name="git" class="form-control" aria-label="With textarea">{{data.git}}</textarea>
+        </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Update</button>
+  </div>
+
+    </form>
+  </body>
+</html>

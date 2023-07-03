@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright SquirrelNetwork
 from database.db_connect import Connection
 from pypika import Query, Table
 
@@ -5,10 +9,17 @@ groups = Table("groups")
 tpnu = Table("nebula_type_no_username_cat")
 
 class GroupsRepository(Connection):
+
     def getById(self, args=None):
-        query = Query.from_(groups).select("*").where(groups.id_group == '%s')
-        q = query.get_sql(quote_char=None)
+        q = "SELECT * FROM groups WHERE id_group = %s"
+
         return self._select(q, args)
+
+    def getAll(self):
+        query = Query.from_(groups).select("*")
+        q = query.get_sql(quote_char=None)
+
+        return self._selectAll(q)
 
     def get_badwords_group(self, args=None):
         q = "SELECT * FROM groups_badwords WHERE tg_group_id = %s"
@@ -43,3 +54,49 @@ class GroupsRepository(Connection):
     def delete_badword(self, args=None):
         q = "DELETE FROM groups_badwords WHERE id = %s AND tg_group_id = %s"
         return self._delete(q, args)
+
+    def delete_group_dashboard(self, args=None):
+        print(args)
+        q = "DELETE FROM nebula_dashboard WHERE tg_group_id = %s"
+
+        return self._single_delete(q, args)
+
+    def insert_article(self, args=None):
+        q = "INSERT INTO nebula_dashboard_content (article_title, title, language, content, author) VALUES (%s,%s,%s,%s,%s)"
+
+        return self._insert(q, args)
+
+    def get_article(self):
+        q = "SELECT * FROM nebula_dashboard_content LIMIT 100"
+
+        return self._selectAll(q)
+
+    def delete_article(self, args=None):
+        q = "DELETE FROM nebula_dashboard_content WHERE article_id = %s"
+
+        return self._single_delete(q, args)
+
+    def insert_staff(self, args=None):
+        q = "INSERT INTO nebula_dashboard_staff (name, description, contact, git, photo) VALUES (%s,%s,%s,%s,%s)"
+
+        return self._insert(q, args)
+
+
+    def get_staff(self):
+        q = "SELECT * FROM nebula_dashboard_staff"
+
+        return self._selectAll(q)
+
+    def delete_staffer(self, args=None):
+        q = "DELETE FROM nebula_dashboard_staff WHERE id = %s"
+
+        return self._single_delete(q, args)
+
+    def getStafferById(self, args=None):
+        q = "SELECT * FROM nebula_dashboard_staff WHERE id = %s"
+
+        return self._select(q, args)
+
+    def update_staff(self, args=None):
+        q = "UPDATE nebula_dashboard_staff SET description=%s, contact=%s, git=%s WHERE id = %s"
+        return self._update(q, args)

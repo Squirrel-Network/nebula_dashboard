@@ -105,10 +105,10 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                {% if data %}
+                {% if data or owner %}
                 <div class="container-fluid">
                     <h1 class="h3 mb-2 text-gray-800">Benvenuto, {{session['username']}}</h1>
-                    <p class="mb-4">Stai modificando il gruppo <b>{{data['group_name']}}</b></p>
+                    <p class="mb-4">Stai modificando il gruppo <b>{{data['group_name']}}</b> con id: <code>{{data['id_group']}}</code></p>
                     <img src="{{data['group_photo']}}" class="img-thumbnail" style="max-width: 220px;border-radius: 110px;" alt="{{data['group_name']}}">
                     <p class="mb-4">Ci sono <b>{{data['total_users']}}</b> Utenti nel tuo gruppo</p>
 
@@ -152,38 +152,41 @@
                                         </select>
                                         <br>
                                         <h4>Filtri del Benvenuto:</h4>
-                                        <!--GRID FILTRI-->
+                                        <!--GRID FILTRI WELCOME-->
                                         {% include "components/dashboard/edit/welcome_filter.html" %}
-                                        <!--FINE GRID FILTRI-->
+                                        <!--FINE GRID FILTRI WELCOME-->
                                         <br>
                                         <hr>
                                             <h2 id="gotorules">Regole del gruppo:</h2>
                                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="rules" required>{{data['rules_text']}}</textarea>
                                             <br>
                                             <button type="submit" class="btn btn-primary btn-lg btn-block" name="updateoptions">Aggiorna</button>
-                                    </form>
-                                </div>
+                                        </form>
+                                        </div>
                             </div>
 
                             <!-- Basic Card Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Send Message with Bot</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Customize the ban message</h6>
                                 </div>
                                 <div class="card-body">
                                     <form method="POST">
-                                        <h2 id="gotomessage">Invia un Messaggio nel Gruppo {{data['group_name']}} dal Bot:</h2>
-                                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="sendbot"></textarea>
+                                        <h2 id="gotomessage">Modifica messaggio ban del gruppo {{data['group_name']}} </h2>
+                                        <h4>I tag disponibili per il messaggio di ban sono:</h4>
+                                        <ul>
+                                            <li><b>{mention}</b> = Menzione Utente(Consigliato)</li>
+                                            <li><b>{username}</b> = Username dell'utente (@username)</li>
+                                            <li><b>{first_name}</b> = Nome Utente</li>
+                                            <li><b>{userid}</b> = Id Utente</li>
+                                            <li><b>{chat}</b> = Nome della chat</li>
+                                        </ul>
+                                           <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="banmessage" required>{{data['ban_message']}}</textarea>
                                            <br>
-                                           <button type="submit" class="btn btn-primary btn-lg btn-block" name="sendmessagebutton">Invia Messaggio</button>
+                                           <button type="submit" class="btn btn-primary btn-lg btn-block" name="sendbanmessage">Modifica</button>
                                         </form>
                                 </div>
                             </div>
-
-                        </div>
-
-                        <div class="col-lg-6">
-
                             <!--<div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Basic Card Example 1</h6>
@@ -194,6 +197,24 @@
                                     easily modified with no need for any custom CSS!
                                 </div>
                             </div>-->
+
+                        </div>
+
+                        <div class="col-lg-6">
+
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Change Title</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST">
+                                        <h2 id="gotorules">Modifica Titolo di <b>{{data['group_name']}}</b></h2>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="chattitle">{{data['group_name']}}</textarea>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" name="updatetitle">Modifica</button>
+                                    </form>
+                                </div>
+                            </div>
 
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -259,26 +280,114 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Filtri nel Gruppo</h6>
             </div>
+            <form method="POST">
                 <div class="card-body">
-                    <h1>UNDER CONSTRUCTION</h1>
-                    <!--<div class="container">
+                    <div class="container">
                         <div class="row">
                           <div class="col">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                            <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
-                        </div>
+                            <div class="form-check form-switch">
+                                <label class="form-check-label">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="blockchannel"
+                                        value="1"
+                                        {% if data['sender_chat_block'] == 1 %} checked {% endif %}
+                                    />
+                                    Blocca Canali
+                                </label>
+                              </div>
                     </div>
-                          <div class="col">Column</div>
-                          <div class="w-100"></div>
-                          <div class="col">Column</div>
-                          <div class="col">Column</div>
-                        </div>
-                      </div>-->
+                          <div class="col">
+                            <div class="form-check form-switch">
+                                <label class="form-check-label">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="setnospoiler"
+                                        value="1"
+                                        {% if data['spoiler_block'] == 1 %} checked {% endif %}
+                                    />
+                                    Blocca Spoiler
+                                </label>
+                              </div>
 
+
+                          </div>
+                          <div class="w-100"></div>
+                          <div class="col">
+                            <div class="form-check form-switch">
+                                <label class="form-check-label">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="setnovocal"
+                                        value="1"
+                                        {% if data['set_no_vocal'] == 1 %} checked {% endif %}
+                                    />
+                                    Blocca Audio
+                                </label>
+                              </div>
+                        </div>
+                          <div class="col">
+                            <div class="form-check form-switch">
+                                <label class="form-check-label">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="setantiflood"
+                                        value="1"
+                                        {% if data['set_antiflood'] == 1 %} checked {% endif %}
+                                    />
+                                    ANTIFLOOD
+                                </label>
+                              </div>
+                        </div>
+                        </div>
+                      </div>
+                      <br>
+                      <button type="submit" class="btn btn-primary btn-lg btn-block" name="sendgroupfilterbtn">Aggiorna</button>
                         </div>
                     </div>
                 </div>
+            </form>
+                {% if owner %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Impostazioni per Owner Del Bot</h6>
+                </div>
+                    <div class="card-body">
+                        <h1>Pannello Owner del Bot (In costruzione)</h1>
+                        <div class="container">
+                            <div class="row">
+                              <div class="col">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Send Message with Bot</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <form method="POST">
+                                            <h2 id="gotomessage">Invia un Messaggio nel Gruppo {{data['group_name']}} dal Bot:</h2>
+                                               <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="sendbot"></textarea>
+                                               <br>
+                                               <button type="submit" class="btn btn-primary btn-lg btn-block" name="sendmessagebutton">Invia Messaggio</button>
+                                            </form>
+                                    </div>
+                                </div>
+                        </div>
+                              <div class="col">
+                                  Column
+                              </div>
+                              <div class="w-100"></div>
+                              <div class="col">Column</div>
+                              <div class="col">Column</div>
+                            </div>
+                          </div>
+
+                            </div>
+                        </div>
+                    </div>
+            {% endif %}
             <!-- End of Main Content -->
             {% else %}
                 <h1><b>Non hai l'autorizzazione per modificare questo gruppo!</b></h1>

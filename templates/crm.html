@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CRM - Owner</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <script>
+    const infoModalContent = new Map();
+    </script>
+</head>
+<body>
+{% if owner %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <p class="navbar-brand">CRM</p>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="https://nebula.squirrel-network.online/crm">CRM <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://nebula.squirrel-network.online">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="https://nebula.squirrel-network.online/dashboard">Dashboard</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+    <form method="POST" name="newsform">
+    <div class="container">
+        <h1>Gestisci Endpoint Articoli</h1>
+
+        <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Titolo</span>
+            </div>
+             <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="titlearticle" required>banana</textarea>
+        </div>
+
+         <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Categoria</span>
+            </div>
+             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="title">
+                <option selected>Seleziona Categoria</option>
+                        <option value="news">News</option>
+                        <option value="security">Security</option>
+                        <option value="aggiornamenti">Aggiornamenti</option>
+                </select>
+        </div>
+
+        <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Linguaggio</span>
+            </div>
+            <select class="form-select" aria-label="Default select example" name="lang">
+                <option selected>Seleziona Linguaggio</option>
+                <option value="go">Golang</option>
+                <option value="js">Javascript</option>
+                <option value="ts">Typescript</option>
+                <option value="py">Python</option>
+                <option value="wa">WebAssembly</option>
+                <option value="php">PHP</option>
+                <option value="dart">Dart</option>
+                <option value="sql">SQL</option>
+                <option value="java">Java</option>
+                <option value="kot">Kotlin</option>
+                <option value="gro">Groovy</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="less">LESS</option>
+                <option value="sass">SASS</option>
+                <option value="scss">SCSS</option>
+                <option value="shell">ShellScript</option>
+                <option value="c">C</option>
+                <option value="cplusplus">C++</option>
+                <option value="csharp">C#</option>
+                <option value="rst">Rust</option>
+                <option value="swift">Swift</option>
+                <option value="oc">Objective-C</option>
+                <option value="ruby">Ruby</option>
+            </select>
+        </div>
+
+        <div id="editor">
+            <p>Python Best Language</p>
+        </div>
+        <br>
+        <input type="hidden" name="formnews" value="formnews">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Invia</button>
+
+
+    </div>
+        <input type="hidden" name="valore_editor">
+        <script type="module">
+        const editorContainer = document.querySelector('#editor');
+
+        const toolbar =
+          [ 'heading'
+          , '|'
+          , 'bold'
+          , 'italic'
+          , 'link'
+          , 'bulletedList'
+          , 'numberedList'
+          , 'blockQuote'
+          , 'indent'
+          , 'outdent'
+          , '|'
+          , 'undo'
+          , 'redo'
+          , 'selectAll'
+          ];
+
+        const editor = await ClassicEditor.create(
+          editorContainer,
+          { toolbar
+          , heading: {
+            options: [
+              { model: 'paragraph', title: 'Paragrafo', class: 'ck-heading_paragraph' },
+              { model: 'pre', view: 'pre', title: 'Preformattato', class: 'ck-heading_pre' },
+              { model: 'code', view: 'code', title: 'Codice in linea', class: 'ck-heading_code' },
+              { model: 'heading1', view: 'h1', title: 'H1', class: 'ck-heading_heading1' },
+              { model: 'heading2', view: 'h2', title: 'H2', class: 'ck-heading_heading2' },
+              { model: 'heading3', view: 'h3', title: 'H3', class: 'ck-heading_heading3' },
+              { model: 'heading4', view: 'h4', title: 'H4', class: 'ck-heading_heading4' },
+              { model: 'heading5', view: 'h5', title: 'H5', class: 'ck-heading_heading5' },
+              { model: 'heading6', view: 'h6', title: 'H6', class: 'ck-heading_heading6' },
+            ]
+          }
+          }
+        );
+
+        const form = window.newsform;
+        const valore = form.elements.valore_editor;
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const editorData = editor.getData();
+            valore.value = editorData;
+
+            form.submit();
+        });
+        </script>
+
+    </form>
+
+    <div class="container">
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+       <th scope="col">Title</th>
+      <th scope="col">Category</th>
+        <th scope="col">Language</th>
+        <th scope="col">Info</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in data %}
+    <script>
+    infoModalContent.set(
+        '{{ row['article_id'] }}',
+        `{{ row['content'] | safe }}`
+    );
+    </script>
+    <tr>
+      <th scope="row">{{row['article_id']}}</th>
+      <td>{{row['article_title']}}</td>
+      <td>{{row['title']}}</td>
+      <td>{{row['language']}}</td>
+      <td><button type="button" class="btn btn-primary info-modal-button" data-info-title="{{ row['title'] }}" data-info-id="{{ row['article_id'] }}" data-bs-toggle="modal" data-bs-target="#infoContent">Info</button></td>
+      <td><form action="{{ url_for('deletearticle', id = row['article_id']) }}" method="POST"><button type="submit" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></form></td>
+  {% endfor %}
+    </tr>
+    <tr>
+  </tbody>
+</table>
+     <a href="https://api.nebula.squirrel-network.online/v1/news" class="btn btn-info btn-circle">Visita ENDPOINT NEWS</a>
+    <hr>
+    <!--ENDPOINT STAFF -->
+    <h1>Gestisci Endpoint Staff</h1>
+     <form method="POST" enctype="multipart/form-data">
+         <input type="hidden" name="formupload" value="formupload">
+
+         <div class="container">
+  <div class="row">
+    <div class="col">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Nome Admin</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="BluLupo" name="adminname" required>
+        </div>
+    </div>
+    <div class="col">
+         <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Contatto</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="https://t.me/BluLupo" name="admincontact" required>
+        </div>
+    </div>
+    <div class="col">
+       <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">GitHub</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="https://github.com/blulupo" name="admingit" required>
+        </div>
+    </div>
+  </div>
+</div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Descrizione Admin</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" name="admindesc"></textarea>
+        </div>
+         <div>
+            <label for="formFileLg" class="form-label">Immagine Admin</label>
+            <input class="form-control form-control-lg" id="formFileLg" name="file" type="file">
+         </div>
+         <br>
+          <input type="submit" class="btn btn-primary mb-3" name="upload" value="Upload">
+          <br>
+
+
+    </form>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+       <th scope="col">Nome</th>
+      <th scope="col">Descrizione</th>
+        <th scope="col">Contatto</th>
+        <th scope="col">Git</th>
+        <th scope="col">PhotoUrl</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in staff %}
+    <tr>
+      <th scope="row">{{row['id']}}</th>
+      <td>{{row['name']}}</td>
+      <td>{{row['description']}}</td>
+      <td><a href="{{row['contact']}}" class="btn btn-info btn-circle">Contatto</a></td>
+      <td><a href="{{row['git']}}" class="btn btn-info btn-circle">Git</a></td>
+      <td><a href="{{row['photo']}}" class="btn btn-info btn-circle">Apri</a></td>
+      <td><form style="margin-right: 10px;" class="d-inline-block" action="{{ url_for('route_staff.staff', id = row['id']) }}" method="POST"><button type="submit" class="btn btn-primary btn-circle""><i class="fas fa-edit"></i></button></form></td>
+      <td><form action="{{ url_for('deletestaffer', id = row['id']) }}" method="POST"><button type="submit" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></form></td>
+  {% endfor %}
+    </tr>
+    <tr>
+  </tbody>
+</table>
+    <br>
+     <a href="https://api.nebula.squirrel-network.online/v1/snstaff" class="btn btn-info btn-circle">Visita ENDPOINT SNSTAFF</a>
+         <br>
+    <br>
+
+    </div>
+
+{% else %}
+<h1>Non sei Autorizzato a vedere questa pagina</h1>
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="infoContent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const infoModalTitle = document.querySelector('#infoContent h5.modal-title');
+const infoModalBody = document.querySelector('#infoContent div.modal-body');
+const infoButtons = Array.from(document.querySelectorAll('button[data-info-id]'));
+
+for(const btn of infoButtons) {
+    const id = btn.getAttribute('data-info-id');
+    const title = btn.getAttribute('data-info-title');
+    const content = infoModalContent.get(id);
+
+    btn.addEventListener(
+        'click',
+        () => {
+            infoModalTitle.innerText = title;
+            infoModalBody.innerHTML = content;
+        }
+    );
+}
+</script>
+
+</body>
+</html>
